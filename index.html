@@ -2,59 +2,70 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Surat Gokil Terlengkap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Gokil Full Screen</title>
     <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; font-family: sans-serif; }
+        body { 
+            margin: 0; background: #000; 
+            display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow-x: hidden; font-family: sans-serif; 
+        }
         
-        #envelope { cursor: pointer; width: 180px; height: 120px; background: #fff; border-radius: 5px; display: flex; justify-content: center; align-items: center; }
-        .red-dot { width: 25px; height: 25px; background: red; border-radius: 50%; box-shadow: 0 0 15px red; }
+        /* Amplop dibuat agak besar agar enak diklik */
+        #envelope { cursor: pointer; width: 220px; height: 150px; background: #fff; border-radius: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .red-dot { width: 35px; height: 35px; background: red; border-radius: 50%; box-shadow: 0 0 20px red; }
 
-        #main-stage { display: none; text-align: center; width: 100%; }
+        #main-stage { display: none; text-align: center; width: 100%; padding: 20px; }
 
-        /* Container Foto & Mata Laser */
+        /* UKURAN FOTO DIUBAH JADI BESAR */
         .photo-container {
             position: relative;
             display: inline-block;
-            margin-bottom: 15px;
+            width: 90%; /* Mengikuti lebar layar */
+            max-width: 500px; /* Batas maksimal agar tidak pecah di laptop */
+            margin-bottom: 20px;
         }
         .profile-img {
-            width: 250px;
-            border: 5px solid white;
-            border-radius: 15px;
+            width: 100%; /* Foto jadi besar */
+            border: 8px solid white;
+            border-radius: 20px;
         }
-        .laser-eye {
-            position: absolute;
-            width: 60px;
-            z-index: 10;
-        }
-        .left { top: 22%; left: 18%; }
-        .right { top: 22%; right: 18%; }
 
-        /* Gaya Video */
+        /* Posisi Mata Laser disesuaikan agar tetap pas walau besar */
+        .laser-eye { position: absolute; width: 25%; z-index: 10; }
+        .left { top: 22%; left: 15%; }
+        .right { top: 22%; right: 15%; }
+
+        /* UKURAN VIDEO DIUBAH JADI BESAR */
         .video-player {
-            width: 300px; border-radius: 15px; border: 4px solid #ff0000;
-            display: none; margin: 0 auto;
+            width: 95%; 
+            max-width: 600px; /* Ukuran video jauh lebih besar dari sebelumnya */
+            border-radius: 20px; 
+            border: 6px solid #ff0000;
+            display: none; 
+            margin: 0 auto;
+            box-shadow: 0 0 40px rgba(255,0,0,0.6);
         }
 
         /* Animasi */
         .gokil-effect { 
             display: inline-block !important; 
-            animation: muter 1s forwards, goyang 0.1s infinite 1s; 
+            animation: muter 1.2s forwards, goyang 0.1s infinite 1.2s; 
         }
         @keyframes muter { from { transform: scale(0) rotate(0deg); } to { transform: scale(1) rotate(720deg); } }
-        @keyframes goyang { 0% { transform: translate(2px, 2px); } 100% { transform: translate(-2px, -2px); } }
+        @keyframes goyang { 0% { transform: translate(3px, 3px); } 100% { transform: translate(-3px, -3px); } }
+
+        h1 { color: white; font-size: 2.5rem; text-shadow: 0 0 15px red; margin-top: 0; }
     </style>
 </head>
 <body>
 
     <div id="envelope" onclick="mulai()">
-        <div class="envelope-box">
-            <div class="red-dot"></div>
-        </div>
+        <div class="red-dot"></div>
     </div>
 
     <div id="main-stage">
-        <h1 style="color:white; text-shadow: 0 0 10px red;">ACUMALAKA!!</h1>
+        <h1>ACUMALAKA!!</h1>
         
         <div class="photo-container">
             <img src="foto.jpg" class="profile-img">
@@ -95,7 +106,6 @@
             document.getElementById(currentId).style.display = 'none';
             const nextV = document.getElementById(nextId);
             nextV.style.display = 'block';
-            // Kita kasih efek gokil juga buat video selanjutnya biar mantap
             nextV.classList.add('gokil-effect');
             nextV.play();
         }
