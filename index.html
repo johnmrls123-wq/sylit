@@ -2,112 +2,97 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Gokil Full Screen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GOKIL FULLSCREEN</title>
     <style>
-        body { 
-            margin: 0; background: #000; 
-            display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; overflow-x: hidden; font-family: sans-serif; 
-        }
+        /* Paksa semua margin hilang */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Amplop dibuat agak besar agar enak diklik */
-        #envelope { cursor: pointer; width: 220px; height: 150px; background: #fff; border-radius: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
-        .red-dot { width: 35px; height: 35px; background: red; border-radius: 50%; box-shadow: 0 0 20px red; }
-
-        #main-stage { display: none; text-align: center; width: 100%; padding: 20px; }
-
-        /* UKURAN FOTO DIUBAH JADI BESAR */
-        .photo-container {
-            position: relative;
-            display: inline-block;
-            width: 90%; /* Mengikuti lebar layar */
-            max-width: 500px; /* Batas maksimal agar tidak pecah di laptop */
-            margin-bottom: 20px;
-        }
-        .profile-img {
-            width: 100%; /* Foto jadi besar */
-            border: 8px solid white;
-            border-radius: 20px;
+        body, html { 
+            width: 100%; height: 100%; 
+            background: #000; overflow: hidden; 
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* Posisi Mata Laser disesuaikan agar tetap pas walau besar */
-        .laser-eye { position: absolute; width: 25%; z-index: 10; }
-        .left { top: 22%; left: 15%; }
-        .right { top: 22%; right: 15%; }
+        /* Amplop Besar */
+        #envelope { 
+            width: 250px; height: 180px; background: #fff; 
+            border-radius: 15px; display: flex; justify-content: center; 
+            align-items: center; cursor: pointer; z-index: 100;
+        }
+        .dot { width: 40px; height: 40px; background: red; border-radius: 50%; box-shadow: 0 0 20px red; }
 
-        /* UKURAN VIDEO DIUBAH JADI BESAR */
+        /* Panggung Utama - Paksa Full Screen */
+        #main-stage { 
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; background: #000;
+            flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999;
+        }
+
+        .photo-wrap { position: relative; width: 90%; margin-bottom: 10px; }
+        .profile-img { width: 100%; border: 5px solid #fff; border-radius: 15px; }
+
+        /* Video Dibuat Sangat Besar */
         .video-player {
-            width: 95%; 
-            max-width: 600px; /* Ukuran video jauh lebih besar dari sebelumnya */
-            border-radius: 20px; 
-            border: 6px solid #ff0000;
-            display: none; 
-            margin: 0 auto;
-            box-shadow: 0 0 40px rgba(255,0,0,0.6);
+            width: 100vw; /* Paksa lebar layar */
+            height: auto; 
+            max-height: 70vh; /* Batas tinggi agar tidak tabrakan sama foto */
+            display: none;
+            object-fit: contain;
+            border: 4px solid red;
         }
 
         /* Animasi */
         .gokil-effect { 
-            display: inline-block !important; 
-            animation: muter 1.2s forwards, goyang 0.1s infinite 1.2s; 
+            display: block !important; 
+            animation: muter 0.8s forwards, goyang 0.1s infinite 0.8s; 
         }
         @keyframes muter { from { transform: scale(0) rotate(0deg); } to { transform: scale(1) rotate(720deg); } }
-        @keyframes goyang { 0% { transform: translate(3px, 3px); } 100% { transform: translate(-3px, -3px); } }
+        @keyframes goyang { 0% { transform: translate(4px, 4px); } 100% { transform: translate(-4px, -4px); } }
 
-        h1 { color: white; font-size: 2.5rem; text-shadow: 0 0 15px red; margin-top: 0; }
+        h1 { color: white; font-size: 8vw; text-shadow: 0 0 10px red; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div id="envelope" onclick="mulai()">
-        <div class="red-dot"></div>
+    <div id="envelope" onclick="unleash()">
+        <div class="dot"></div>
     </div>
 
     <div id="main-stage">
         <h1>ACUMALAKA!!</h1>
         
-        <div class="photo-container">
+        <div class="photo-wrap">
             <img src="foto.jpg" class="profile-img">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF6bm96bm96bm96bm96bm96bm96bm96bm96bm96bm96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/26AHG5K30O7X3/giphy.gif" class="laser-eye left">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF6bm96bm96bm96bm96bm96bm96bm96bm96bm96bm96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/26AHG5K30O7X3/giphy.gif" class="laser-eye right">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF6bm96bm96bm96bm96bm96bm96bm96bm96bm96bm96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/26AHG5K30O7X3/giphy.gif" style="position:absolute; width:25%; top:22%; left:18%;">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF6bm96bm96bm96bm96bm96bm96bm96bm96bm96bm96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/26AHG5K30O7X3/giphy.gif" style="position:absolute; width:25%; top:22%; right:18%;">
         </div>
 
-        <br>
-
-        <video id="v1" class="video-player" onended="nextVideo('v1', 'v2')">
-            <source src="video.mp4" type="video/mp4">
-        </video>
-
-        <video id="v2" class="video-player" onended="nextVideo('v2', 'v3')">
-            <source src="api.mp4" type="video/mp4">
-        </video>
-
-        <video id="v3" class="video-player">
-            <source src="subscribe.mp4" type="video/mp4">
-        </video>
+        <video id="v1" class="video-player" onended="nextV('v1', 'v2')"> <source src="video.mp4" type="video/mp4"> </video>
+        <video id="v2" class="video-player" onended="nextV('v2', 'v3')"> <source src="api.mp4" type="video/mp4"> </video>
+        <video id="v3" class="video-player"> <source src="subscribe.mp4" type="video/mp4"> </video>
     </div>
 
     <audio id="lagu" src="newsoul.mp3"></audio>
 
     <script>
-        function mulai() {
+        function unleash() {
             document.getElementById('envelope').style.display = 'none';
-            document.getElementById('main-stage').style.display = 'block';
-            
+            const stage = document.getElementById('main-stage');
+            stage.style.display = 'flex'; // Paksa muncul dengan flex
+
             const v1 = document.getElementById('v1');
             v1.classList.add('gokil-effect');
-            v1.style.display = 'block';
             v1.play();
             document.getElementById('lagu').play();
         }
 
-        function nextVideo(currentId, nextId) {
-            document.getElementById(currentId).style.display = 'none';
-            const nextV = document.getElementById(nextId);
-            nextV.style.display = 'block';
-            nextV.classList.add('gokil-effect');
-            nextV.play();
+        function nextV(curr, next) {
+            document.getElementById(curr).style.display = 'none';
+            const n = document.getElementById(next);
+            n.classList.add('gokil-effect');
+            n.play();
         }
     </script>
 </body>
